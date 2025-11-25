@@ -146,7 +146,7 @@
 
       -webkit-user-drag: none;
       user-select: none;
-      pointer-events: none;    /* impede clique direto na imagem */
+      pointer-events: none;    /* clique pega no card, não na imagem */
     }
 
     @media (max-width: 640px) {
@@ -347,6 +347,65 @@
     .note span {
       color: #fbbf24;
     }
+
+    /* VIEWER DE IMAGEM EM TELA CHEIA */
+    .image-viewer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      padding: 16px;
+    }
+
+    .image-viewer-overlay.active {
+      display: flex;
+    }
+
+    .image-viewer-inner {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      max-height: 100%;
+    }
+
+    .image-viewer-inner img {
+      width: 100%;
+      height: auto;
+      max-height: calc(100vh - 60px);
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow:
+        0 0 30px rgba(236, 72, 153, 0.6),
+        0 18px 50px rgba(0, 0, 0, 1);
+      -webkit-user-drag: none;
+      user-select: none;
+      pointer-events: none; /* não clica na imagem, só no fundo/botão */
+    }
+
+    .image-viewer-close {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.25);
+      color: #f9fafb;
+      font-size: 0.8rem;
+      padding: 6px 9px;
+      cursor: pointer;
+      box-shadow:
+        0 0 18px rgba(236, 72, 153, 0.7),
+        0 10px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    @media (max-width: 480px) {
+      .image-viewer-inner img {
+        max-height: calc(100vh - 40px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -379,6 +438,14 @@
     </div>
   </div>
 
+  <!-- VIEWER DE IMAGEM EM TELA CHEIA -->
+  <div class="image-viewer-overlay" id="imageViewer">
+    <div class="image-viewer-inner">
+      <button class="image-viewer-close" id="imageViewerClose">✕</button>
+      <img id="imageViewerImg" src="" alt="Prévia ampliada" />
+    </div>
+  </div>
+
   <!-- CONTEÚDO DA PÁGINA -->
   <div class="page">
     <div class="glow-ring"></div>
@@ -394,17 +461,17 @@
       </div>
 
       <div class="grid">
-        <!-- TROQUE OS SRC PELAS SUAS FOTOS -->
+        <!-- SUAS FOTOS -->
         <div class="card">
-          <img src="https://simp6.selti-delivery.ru/images3/photo_4985669763610643303_y93278ffd8d6f5727.jpg" />
+          <img src="https://simp6.selti-delivery.ru/images3/photo_4985669763610643303_y93278ffd8d6f5727.jpg" alt="Prévia 1" />
           <div class="card-label">
-            <span>01</span> 
+            <span>01</span>
           </div>
         </div>
         <div class="card">
           <img src="https://simp6.selti-delivery.ru/images3/photo_4985669763610643302_yc957a861935e48a0.jpg" alt="Prévia 2" />
           <div class="card-label">
-            <span>02</span> 
+            <span>02</span>
           </div>
         </div>
         <div class="card">
@@ -436,6 +503,10 @@
     const overlay = document.getElementById("followGate");
     const btnVerifyFollow = document.getElementById("btnVerifyFollow");
 
+    const imageViewer = document.getElementById("imageViewer");
+    const imageViewerImg = document.getElementById("imageViewerImg");
+    const imageViewerClose = document.getElementById("imageViewerClose");
+
     // Se já "verificou" uma vez, não mostra mais o popup
     document.addEventListener("DOMContentLoaded", () => {
       const verified = localStorage.getItem("bianca_follow_verified");
@@ -448,6 +519,16 @@
         img.setAttribute("draggable", "false");
         img.addEventListener("dragstart", (e) => e.preventDefault());
       });
+
+      // Clique no card abre a imagem em tela cheia
+      document.querySelectorAll(".card").forEach(card => {
+        card.addEventListener("click", () => {
+          const img = card.querySelector("img");
+          if (!img) return;
+          imageViewerImg.src = img.src;
+          imageViewer.classList.add("active");
+        });
+      });
     });
 
     // Botão de verificar follow
@@ -458,6 +539,28 @@
 
       // Abre o Instagram em nova aba
       window.open("https://www.instagram.com/biaalate/", "_blank");
+    });
+
+    // Fechar viewer pelo botão
+    imageViewerClose.addEventListener("click", () => {
+      imageViewer.classList.remove("active");
+      imageViewerImg.src = "";
+    });
+
+    // Fechar viewer clicando fora da imagem
+    imageViewer.addEventListener("click", (e) => {
+      if (e.target === imageViewer) {
+        imageViewer.classList.remove("active");
+        imageViewerImg.src = "";
+      }
+    });
+
+    // Fechar viewer com ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && imageViewer.classList.contains("active")) {
+        imageViewer.classList.remove("active");
+        imageViewerImg.src = "";
+      }
     });
 
     // Bloquear botão direito na página toda
