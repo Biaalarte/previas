@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prévia da Bianca 🔥</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, #ff0080 0, transparent 55%),
+        radial-gradient(circle at bottom right, #4f46e5 0, transparent 55%),
+        #020617;
+      color: #f9fafb;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.88));
+      border-radius: 26px;
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      box-shadow:
+        0 0 35px rgba(236, 72, 153, 0.35),
+        0 20px 60px rgba(0, 0, 0, 0.85);
+      padding: 24px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-ring {
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.16), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(59, 130, 246, 0.18), transparent 55%);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.1);
+      background: rgba(15, 23, 42, 0.7);
+      color: #fbbf24;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 1.7rem;
+      margin-bottom: 4px;
+    }
+
+    .header h1 span {
+      color: #fb7185;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    .header p span {
+      color: #f472b6;
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #020617, #020617);
+      border: 1px solid rgba(248, 250, 252, 0.12);
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.8);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(15, 23, 42, 0.85),
+        transparent 45%
+      );
+      opacity: 0;
+      transition: opacity 0.15s ease-out;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow:
+        0 0 25px rgba(236, 72, 153, 0.4),
+        0 18px 40px rgba(0, 0, 0, 0.9);
+      border-color: rgba(248, 113, 113, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .card img {
+        height: 180px;
+      }
+    }
+
+    .card-label {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(248, 250, 252, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #f9fafb;
+    }
+
+    .card-label span {
+      font-size: 0.75rem;
+      color: #f97316;
+    }
+
+    .cta {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .cta p {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #fb7185, #6366f1);
+      color: #f9fafb;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow:
+        0 0 18px rgba(236, 72, 153, 0.55),
+        0 14px 35px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(248, 250, 252, 0.1);
+      transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+    }
+
+    .cta a:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 25px rgba(236, 72, 153, 0.75),
+        0 18px 45px rgba(0, 0, 0, 0.95);
+      filter: brightness(1.06);
+    }
+
+    .cta small {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: #6b7280;
+    }
+
+    /* POPUP / GATE */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(3, 7, 18, 0.98));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      backdrop-filter: blur(6px);
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 420px;
+      background: radial-gradient(circle at top, #111827, #020617);
+      border-radius: 24px;
+      border: 1px solid rgba(248, 113, 113, 0.6);
+      padding: 22px 20px 18px;
+      text-align: center;
+      box-shadow:
+        0 0 40px rgba(248, 113, 113, 0.45),
+        0 22px 60px rgba(0, 0, 0, 0.95);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(236, 72, 153, 0.2), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.24), transparent 55%);
+      pointer-events: none;
+      opacity: 0.95;
+    }
+
+    .modal-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(248, 250, 252, 0.16);
+      color: #fbbf24;
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .modal-title span {
+      color: #fb7185;
+    }
+
+    .modal-subtitle {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    .modal-subtitle span {
+      color: #f472b6;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      width: 100%;
+      border-radius: 999px;
+      border: none;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #fb7185, #6366f1);
+      color: #f9fafb;
+      box-shadow:
+        0 0 20px rgba(236, 72, 153, 0.6),
+        0 14px 30px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(248, 250, 252, 0.14);
+    }
+
+    .note {
+      margin-top: 8px;
+      font-size: 0.72rem;
+      color: #9ca3af;
+    }
+
+    .note span {
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+  <!-- POPUP / GATE -->
+  <div class="overlay" id="followGate">
+    <div class="modal">
+      <div class="modal-inner">
+        <div class="modal-pill">
+          🔞 ÁREA RESTRITA
+        </div>
+        <div class="modal-title">
+          Só entra quem é <span>meu</span> seguidor 😈
+        </div>
+        <div class="modal-subtitle">
+          As prévias quentes da <span>@biaalate</span> são só para quem já me acompanha no Instagram.
+        </div>
+
+        <div class="btn-row">
+          <!-- ÚNICO BOTÃO: VERIFICAR SE SEGUE -->
+          <button class="btn btn-primary" id="btnVerifyFollow">
+            ✅ Verificar se sigo @biaalate
+          </button>
+        </div>
+
+        <div class="note">
+          Ao clicar, abrimos seu Instagram.  
+          <span>Não pedimos senha</span> e não vemos seus dados.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO DA PÁGINA -->
+  <div class="page">
+    <div class="glow-ring"></div>
+    <div class="content">
+      <div class="header">
+        <div class="tagline">
+          ❤️‍🔥 PRÉVIA EXCLUSIVA
+        </div>
+        <h1>Closet secreto da <span>Bianca</span></h1>
+        <p>
+          Só alguns segundos de atenção pra ver o que o feed <span>não</span> mostra.
+        </p>
+      </div>
+
+      <div class="grid">
+        <!-- TROQUE OS SRC PELAS SUAS FOTOS -->
+        <div class="card">
+          <img src="https://placehold.co/600x800?text=Preview+1" alt="Prévia 1" />
+          <div class="card-label">
+            <span>01</span> Prévia quente
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://placehold.co/600x800?text=Preview+2" alt="Prévia 2" />
+          <div class="card-label">
+            <span>02</span> Bastidor
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://placehold.co/600x800?text=Preview+3" alt="Prévia 3" />
+          <div class="card-label">
+            <span>03</span> Detalhes
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://placehold.co/600x800?text=Preview+4" alt="Prévia 4" />
+          <div class="card-label">
+            <span>04</span> Você não vê no feed
+          </div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <p>Se essas são só as prévias… imagina o resto.</p>
+        <!-- LINK PRA SEU INSTA -->
+        <a href="https://www.instagram.com/biaalate/" target="_blank" rel="noopener noreferrer">
+          💌 Ver mais da Bianca no Instagram
+        </a>
+        <small>Depois que seguir, volta aqui e o portal já vai estar liberado 😉</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById("followGate");
+    const btnVerifyFollow = document.getElementById("btnVerifyFollow");
+
+    // Se já "verificou" uma vez, não mostra mais o popup
+    document.addEventListener("DOMContentLoaded", () => {
+      const verified = localStorage.getItem("bianca_follow_verified");
+      if (verified === "true") {
+        overlay.classList.add("hidden");
+      }
+    });
+
+    btnVerifyFollow.addEventListener("click", () => {
+      // Marca como verificado ANTES de abrir o Instagram
+      localStorage.setItem("bianca_follow_verified", "true");
+      overlay.classList.add("hidden");
+
+      // Abre o Instagram em nova aba
+      window.open("https://www.instagram.com/biaalate/", "_blank");
+    });
+  </script>
+</body>
+</html>
